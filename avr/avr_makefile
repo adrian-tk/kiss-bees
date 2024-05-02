@@ -1,0 +1,81 @@
+# general makefile for avr uc
+#
+# 2024-04-23
+# Adrian Tomczyk
+# adrian.tk@gmail.com
+#
+# shall not be used standalone
+# but included in other makefile
+
+
+# phony don't create file
+.PHONY: clean all compile-all
+
+#name of output file
+PROG = main.elf
+
+CC = avr-gcc
+OC = avr-objcopy
+#PLATFORM = avr8x
+
+# add $MCU_C in default Makefile
+CFLAGS = -mmcu=$(MCU_C) \
+		 -Wall \
+		 -g \
+		 -Os \
+	 	 -std=c99 \
+		 -c	
+
+# if PACK_DIR is defined in uc makefile add
+# paths to INCLUDES
+ifdef PACK_DIR
+INCLUDES += -B $(B_DIR) \
+          -I $(I_DIR)
+endif
+
+#LDFLAGS = -T msp432p401r.lds \
+		  --specs=nosys.specs \
+		  -Xlinker -Map=$(PROG:.out=.map)
+LDFLAGS = -mmcu=$(MCU_LD)
+
+# flags for avr-objcopy
+OCFLAGS = -j .text \
+		  -j .data \
+		  -O ihex
+
+
+# replace in actual Makefile BEFORE include this file
+# added here only for readability
+#SRCS = def.c
+
+OBJS := $(SRCS:.c=.o)
+HEX := $(PROG:.elf=.hex)
+
+all: $(OBJS)
+	$(CC) $(OBJS) $(LDFLAGS) -o $(PROG)
+
+%.o: %.c
+	$(CC) $(CFLAGS) $(INCLUDES) $<
+	$(CC) $(CFLAGS) -MM -MF $*.d $(INCLUDES) $<
+
+hex: all 
+	$(OC) $(OCFLAGS) $(PROG) $(HEX)
+
+compile-all: $(SRCS)
+	$(CC) $(CFLAGS) $(INCLUDES) $(SRCS)
+
+%.i: %.c
+	$(CC) $(CFLAGS) $(INCLUDES) -E $< -o $@
+
+%.asm: %.c
+	$(CC) $(CFLAGS) $(INCLUDES) -S $< -o $@
+
+clean: 
+	rm -f $(PROG)	\
+		$(PROG:.elf=.hex)	\
+		$(PROG:.elf=.map)	\
+	   	$(SRCS:.c=.o) \
+	   	$(SRCS:.c=.d) \
+	   	$(SRCS:.c=.asm) \
+	   	$(SRCS:.c=.i) 
+

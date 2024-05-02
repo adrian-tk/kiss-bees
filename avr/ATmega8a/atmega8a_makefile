@@ -1,0 +1,24 @@
+# make file for ATmega8a uc
+#
+# 2024-04-25
+# Adrian Tomczyk
+# adrian.tk@gmail.com
+#
+# shall not be used standalone
+# but included in other makefile
+
+# uc name for gcc CFLAGS
+MCU_C = atmega8a
+
+# uc type for linker LDFLAGS
+MCU_LD = atmega8a
+
+# uc name for programmer
+MCU_DEV = m8a
+
+# fuse default settings
+L_FUSE_DEF = 0xe1
+H_FUSE_DEF = 0xd9
+
+include ../../avr_makefile
+include ../../avrdude_makefile

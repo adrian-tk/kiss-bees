@@ -1,0 +1,13 @@
+# check USBasp and get signature
+avrdude -c USBasp -p m8a
+
+# more info
+avrdude -c USBasp -p m8a -v
+
+avrdude -c USBasp
+# list parts
+# for ATmega8a: m8a
+# for ATtiny85: t85
+
+# read high and low fuse
+avrdude -c USBasp -p m8a -U hfuse:r:-:h -U lfuse:r:-:h

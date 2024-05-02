@@ -1,0 +1,7 @@
+/env
+/area_for_testing
+/mkdocs/site
+ext_doc/
+__pycache__
+.~lock.*
+*.swp

@@ -1,0 +1,23 @@
+# install pymcuprog
+	pip install pymcuprog
+# connect some serial device acc to schema:
+
+                        Vcc                     
+                        +-+                     
+                         |                        ATtiny412
+ +---------------------+ |                       
+ | Serial port         +-+                         +----+
+ |                     |      +----------+        -|    |-  
+ |                  TX +------+   1k     +---------|    |-  
+ |                     |      +----------+    |   -|    |-  
+ |                     |                      |  +-|   o|--+ 
+ |                  RX +----------------------+  | +----+  |     |
+ |                     |                         |        +-+ 
+ |                     +--+                     +-+       Vcc 
+ +---------------------+  |                     GND  
+                         +-+                 
+                         GND                   
+
+# check connection
+# address shall be visible after connect with "sudo dmesg"
+pymcuprog ping -t uart -u /dev/ttyACM0 -d attiny412

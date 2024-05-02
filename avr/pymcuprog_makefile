@@ -1,0 +1,43 @@
+# makefile for using pymcuprog
+#
+# 2024-04-25
+# Adrian Tomczyk
+# adrian.tk@gmail.com
+#
+# shall not be used standalone
+# but included in other makefile
+
+
+.PHONY: program upload erase write #fuse_set fuse_default
+
+DEVICE = pymcuprog
+# port for serial programming
+SERIAL_PORT = /dev/ttyACM0
+
+# flags for DEVICE 
+DEV_FLAGS = -t uart \
+		  -u $(SERIAL_PORT) \
+		  -d $(MCU_DEV) \
+
+upload: erase write
+
+erase: 
+	$(DEVICE) erase $(DEV_FLAGS)
+
+write: hex
+	$(DEVICE) write -f $(PROG:.elf=.hex) $(DEV_FLAGS)
+
+
+program: upload clean
+
+#fuse_default:
+#	$(DEVICE) $(DEV_FLAGS) -U lfuse:w:$(L_FUSE_DEF):m -U hfuse:w:$(H_FUSE_DEF):m
+#
+#fuse_set:
+#ifndef L_FUSE
+#	$(warning FUSE is not set in Makefile)
+#else
+#	$(DEVICE) $(DEV_FLAGS) -U lfuse:w:$(L_FUSE):m -U hfuse:w:$(H_FUSE):m
+#endif
+
+

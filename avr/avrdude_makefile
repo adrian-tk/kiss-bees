@@ -1,0 +1,34 @@
+# makefile for using avrdude
+#
+# 2024-04-23
+# Adrian Tomczyk
+# adrian.tk@gmail.com
+#
+# shall not be used standalone
+# but included in other makefile
+
+
+.PHONY: program upload fuse_set fuse_default
+
+DEVICE = avrdude
+
+# flags for AD (avrdude)
+DEV_FLAGS = -c usbasp \
+		  -p $(MCU_DEV) \
+
+upload: hex
+	$(DEVICE) $(DEV_FLAGS) -U flash:w:$(PROG:.elf=.hex)
+
+program: upload clean
+
+fuse_default:
+	$(DEVICE) $(DEV_FLAGS) -U lfuse:w:$(L_FUSE_DEF):m -U hfuse:w:$(H_FUSE_DEF):m
+
+fuse_set:
+ifndef L_FUSE
+	$(warning FUSE is not set in Makefile)
+else
+	$(DEVICE) $(DEV_FLAGS) -U lfuse:w:$(L_FUSE):m -U hfuse:w:$(H_FUSE):m
+endif
+
+
