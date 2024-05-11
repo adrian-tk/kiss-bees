@@ -11,7 +11,7 @@
 
 # files to compile
 # separate with blanks if more that one
-SRCS = ctc_timing_blink.c
+SRCS = delay_with_sw_blink.c
 
 # if needed set fuse here
 # might be programed with "make fuse_set"
