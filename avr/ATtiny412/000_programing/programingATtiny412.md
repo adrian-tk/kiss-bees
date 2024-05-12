@@ -6,7 +6,13 @@ Real connection on bredboard  might look like below. ATtiny412 (and other uc in 
 ![connection example](bb.jpg "connection example")
 
 ## Software
-### Linux
+### Toolchain
+You need gcc-avr it is very popular, probably Your's distro have one.  
+For some reasons, "newer" (about 10 years?) microcontrollers needs additionally atpack, with many data about them.  
+For ATtiny412 You need  "Atmel ATtiny Series Device Support" from [here](http://packs.download.atmel.com/).
+Unpack it somewhere (/opt in our examples) and give the path in command line, or include it in [makefile](/doc/makefile.md)
+### Programmer
+#### Linux
 install pymcuprog, preferably in venv enviroment.
 check dmesg for info about addresses
 ```console
