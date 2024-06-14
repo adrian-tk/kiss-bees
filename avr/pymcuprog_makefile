@@ -1,16 +1,23 @@
 # makefile for using pymcuprog
 #
-# 2024-04-25
+# 2024-06-14
 # Adrian Tomczyk
 # adrian.tk@gmail.com
 #
 # shall not be used standalone
 # but included in other makefile
+#
 
 
 .PHONY: program upload erase write #fuse_set fuse_default
 
-DEVICE = pymcuprog
+# get directory for this file
+CURRENT_MAKEFILE := $(word $(words $(MAKEFILE_LIST)),$(MAKEFILE_LIST))
+MAKEFILE_DIRECTORY := $(dir $(CURRENT_MAKEFILE))
+
+# add program to use, might be in env
+DEVICE = $(MAKEFILE_DIRECTORY)../env/bin/pymcuprog
+
 # port for serial programming
 SERIAL_PORT = /dev/ttyACM0
 
@@ -18,6 +25,7 @@ SERIAL_PORT = /dev/ttyACM0
 DEV_FLAGS = -t uart \
 		  -u $(SERIAL_PORT) \
 		  -d $(MCU_DEV) \
+
 
 upload: erase write
 
