@@ -4,15 +4,69 @@ ATtiny412 use completly different (UDPI) programing interface than older type of
 ![connection schema](connection.svg "connection schema")  
 Real connection on bredboard  might look like below. ATtiny412 (and other uc in this series) don't have a convinient Dip package, so SOP8 to Dip8 adapter was used.  
 ![connection example](bb.jpg "connection example")
-
+If You're not afraid of soldering, some smaller SOP to dip adapter is also available:
+![another connection example](cc.jpg "another connection example")
 ## Software
+
 ### Toolchain
-You need gcc-avr it is very popular, probably Your's distro have one.  
+You need gcc-avr. It is very popular, probably Your's distro have one, however gcc from microchip might help avoid some strange problems.  
+You need "AVR 8-Bit Toolchain (Linux)" from [here](https://www.microchip.com/en-us/tools-resources/develop/microchip-studio/gcc-compilers).  
+Unpack it somhere - in our examples /opt/avr, but it might be somewhere in /home if You like.
+```console
+sudo tar -xvzf avr8-gnu-toolchain-xxxx.tar.gz
+```
 For some reasons, "newer" (about 10 years?) microcontrollers needs additionally atpack, with many data about them.  
 For ATtiny412 You need  "Atmel ATtiny Series Device Support" from [here](http://packs.download.atmel.com/).
-Unpack it somewhere (/opt in our examples) and give the path in command line, or include it in [makefile](/doc/makefile.md)
+Unpack it somewhere (/opt/avr in our examples).
+For simplify copy some files from pack to gcc toolchain:
+```
+sudo cp /opt/avr/Atmel.ATtiny_DFP.2.0.368.atpack_FILES/include/avr/iotn?*1[2467].h /opt/avr/avr8-gnu-toolchain-linux_x86_64/avr/include/avr/
+```
+```console
+sudo cp /opt/avr/Atmel.ATtiny_DFP.2.0.368.atpack_FILES/gcc/dev/attiny?*1[2467]/avrxmega3/**.{o,a} /opt/avr/avr8-gnu-toolchain-linux_x86_64/avr/lib/avrxmega3/
+```
+```console
+sudo cp opt/avr/Atmel.ATtiny_DFP.2.0.368.atpack_FILES/gcc/dev/attiny?*1[2467]/avrxmega3/short-calls/*.{o,a} /opt/avr/avr8-gnu-toolchain-linux_x86_64/avr/lib/avrxmega3/short-calls/
+```
+for /opt/avr/avr8-gnu-toolchain-linux_x86_64/avr/include/avr/io.h add those lines:
+```c
+# added manualy
+#elif defined (__AVR_ATtiny212__)
+#  include <avr/iotn212.h>
+#elif defined (__AVR_ATtiny412__)
+#  include <avr/iotn412.h>
+#elif defined (__AVR_ATtiny214__)
+#  include <avr/iotn214.h>
+#elif defined (__AVR_ATtiny414__)
+#  include <avr/iotn414.h>
+#elif defined (__AVR_ATtiny814__)
+#  include <avr/iotn814.h>
+#elif defined (__AVR_ATtiny1614__)
+#  include <avr/iotn1614.h>
+#elif defined (__AVR_ATtiny3214__)
+#  include <avr/iotn3214.h>
+#elif defined (__AVR_ATtiny416__)
+#  include <avr/iotn416.h>
+#elif defined (__AVR_ATtiny816__)
+#  include <avr/iotn816.h>
+#elif defined (__AVR_ATtiny1616__)
+#  include <avr/iotn1616.h>
+#elif defined (__AVR_ATtiny3216__)
+#  include <avr/iotn3216.h>
+#elif defined (__AVR_ATtiny417__)
+#  include <avr/iotn417.h>
+#elif defined (__AVR_ATtiny817__)
+#  include <avr/iotn817.h>
+#elif defined (__AVR_ATtiny1617__)
+#  include <avr/iotn1617.h>
+#elif defined (__AVR_ATtiny3217__)
+#  include <avr/iotn3217.h>
+```
+Many thanks for [Tycho](https://github.com/TychoJ/avrMake) and [LeoNerd](http://leonerds-code.blogspot.com/2019/06/building-for-new-attiny-1-series-chips.html).
+
 ### Programmer
 #### Linux
+
 install pymcuprog, preferably in venv enviroment.
 check dmesg for info about addresses
 ```console

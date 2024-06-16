@@ -1,11 +1,12 @@
 # general makefile for avr uc
 #
-# 2024-04-23
+# 2024-06-16
 # Adrian Tomczyk
 # adrian.tk@gmail.com
 #
 # shall not be used standalone
 # but included in other makefile
+# 2024-06-16 path changed to microchip toolchain
 
 
 # phony don't create file
@@ -14,8 +15,10 @@
 #name of output file
 PROG = main.elf
 
-CC = avr-gcc
-OC = avr-objcopy
+#CC = avr-gcc
+CC = /opt/avr/avr8-gnu-toolchain-linux_x86_64/bin/avr-gcc
+#OC = avr-objcopy
+OC = /opt/avr/avr8-gnu-toolchain-linux_x86_64/bin/avr-objcopy
 #PLATFORM = avr8x
 
 # add $MCU_C in default Makefile

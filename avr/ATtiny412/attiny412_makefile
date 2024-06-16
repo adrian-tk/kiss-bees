@@ -1,17 +1,18 @@
 # make file for ATtiny412 uc
 #
-# 2024-04-25
+# 2024-06-16
 # Adrian Tomczyk
 # adrian.tk@gmail.com
 #
 # shall not be used standalone
 # but included in other makefile
+# 2024-06-16 MCU_LD changed to attiny after toolchain mod.
 
 # uc name for gcc CFLAGS
 MCU_C = attiny412
 
 # uc type for linker LDFLAGS
-MCU_LD = avrxmega3
+MCU_LD = attiny412
 
 # uc name for programming device
 MCU_DEV = attiny412
@@ -23,10 +24,11 @@ H_FUSE_DEF = 0xd9
 # that is the tricky part
 # microchip sends files for newer uc as pack
 # You can get it from http://packs.download.atmel.com/
-# after installing it You have to add path here
-PACK_DIR = /opt/avr/Atmel.ATtiny_DFP.2.0.368.atpack_FILES
-I_DIR = $(PACK_DIR)/include/
-B_DIR = $(PACK_DIR)/gcc/dev/attiny412/
+# after installing it You have to add path here and uncomment
+# or copy it to atmega toolchain
+#PACK_DIR = ""/opt/avr/Atmel.ATtiny_DFP.2.0.368.atpack_FILES
+#I_DIR = $(PACK_DIR)/include/
+#B_DIR = $(PACK_DIR)/gcc/dev/attiny412/
 
 include ../../avr_makefile
 include ../../pymcuprog_makefile
