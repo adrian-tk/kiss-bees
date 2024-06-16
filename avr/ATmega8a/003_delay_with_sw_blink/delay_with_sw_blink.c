@@ -9,7 +9,7 @@ int main(){
 	unsigned char sec_count = 0;
 
    	//configure pin as output
-	DDRB |= (1<<PB0);
+	DDRB |= (1<<PB1);
 
 	//Set timer with frequency | divided by 64
 	TCCR1B |= ((1<<CS10) | (1<<CS11));
@@ -31,7 +31,7 @@ int main(){
 				sec_count = 0;	
 
 				// Toggle pin
-				PORTB ^= (1<<0);
+				PORTB ^= (1<<1);
 			}
 		}
 	}

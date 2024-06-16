@@ -4,12 +4,12 @@
 #include <util/delay.h>
 
 int main(){
-	DDRB |= (1<<PB0);
+	DDRB |= (1<<PB1);
 
 	while(1){
-		PORTB |= (1 << PB0);
+		PORTB |= (1 << PB1);
 		_delay_ms(100);
-		PORTB &= ~(1 << PB0);
+		PORTB &= ~(1 << PB1);
 		_delay_ms(100);
 	}
 	return 0;

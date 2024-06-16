@@ -5,7 +5,7 @@
 
 int main(){
    	// configure pin as output
-	DDRB |= (1 << PB0);
+	DDRB |= (1 << PB1);
 
 	// configure timer for CTC
 	TCCR1B |= (1 << WGM12);
@@ -24,7 +24,7 @@ int main(){
 		if (TIFR & (1 << OCF1A)){
 
 			// Toggle pin
-			PORTB ^= (1 << 0);
+			PORTB ^= (1 << 1);
 
 			//clear CTC flag by writing 1(!)
 			TIFR = (1 << OCF1A);
