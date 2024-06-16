@@ -14,8 +14,10 @@
 #name of output file
 PROG = main.elf
 
-CC = avr-gcc
-OC = avr-objcopy
+#CC = avr-gcc
+CC = /opt/avr/avr8-gnu-toolchain-linux_x86_64/bin/avr-gcc
+#OC = avr-objcopy
+OC = /opt/avr/avr8-gnu-toolchain-linux_x86_64/bin/avr-objcopy
 #PLATFORM = avr8x
 
 # add $MCU_C in default Makefile
