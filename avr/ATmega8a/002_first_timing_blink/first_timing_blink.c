@@ -5,7 +5,7 @@
 
 int main(){
    	//configure pin as output
-	DDRB |= (1<<PB0);
+	DDRB |= (1<<PB1);
 
 	//Set timer with frequency | divided by 64
 	TCCR1B |= ((1<<CS10) | (1<<CS11));
@@ -18,7 +18,7 @@ int main(){
 		if (TCNT1 >= 15624){
 
 			// Toggle pin
-			PORTB ^= (1<<0);
+			PORTB ^= (1<<1);
 
 			//reset timer
 			TCNT1 = 0;
