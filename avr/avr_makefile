@@ -1,11 +1,12 @@
 # general makefile for avr uc
 #
-# 2024-04-23
+# 2024-06-16
 # Adrian Tomczyk
 # adrian.tk@gmail.com
 #
 # shall not be used standalone
 # but included in other makefile
+# 2024-06-16 path changed to microchip toolchain
 
 
 # phony don't create file

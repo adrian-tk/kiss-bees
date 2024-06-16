@@ -17,11 +17,11 @@ int main(){
 	// enable overflow interrupt
 	TCA0.SINGLE.INTCTRL = TCA_SINGLE_OVF_bm;
 
-	//no waveform - normal mode, deafult?
-	TCA0.SINGLE.CTRLB = TCA_SINGLE_WGMODE_NORMAL_gc;
+	//no waveform - normal mode, deafult
+	//TCA0.SINGLE.CTRLB = TCA_SINGLE_WGMODE_NORMAL_gc;
 
-	//disable event counting, default?
-	TCA0.SINGLE.EVCTRL &= ~(TCA_SINGLE_CNTEI_bm);
+	//disable event counting, default
+	//TCA0.SINGLE.EVCTRL &= ~(TCA_SINGLE_CNTEI_bm);
 
 	//Set timer with frequency divided by 256
 	//and enable a timer
@@ -39,6 +39,6 @@ ISR(TCA0_OVF_vect){
 	// Toggle pin
 	PORTA.OUTTGL = PIN7_bm;
 
-	//clear flags
+	//clear flags - flags are not cleared automatically
 	TCA0.SINGLE.INTFLAGS = TCA_SINGLE_OVF_bm;
 }
