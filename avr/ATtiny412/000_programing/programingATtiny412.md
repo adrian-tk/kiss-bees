@@ -7,6 +7,7 @@ Real connection on bredboard  might look like below. ATtiny412 (and other uc in 
 If You're not afraid of soldering, some smaller SOP to dip adapter is also available:
 ![another connection example](cc.jpg "another connection example")
 ## Software
+
 ### Toolchain
 You need gcc-avr. It is very popular, probably Your's distro have one, however gcc from microchip might help avoid some strange problems.  
 You need "AVR 8-Bit Toolchain (Linux)" from [here](https://www.microchip.com/en-us/tools-resources/develop/microchip-studio/gcc-compilers).  
@@ -65,6 +66,7 @@ Many thanks for [Tycho](https://github.com/TychoJ/avrMake) and [LeoNerd](http://
 
 ### Programmer
 #### Linux
+
 install pymcuprog, preferably in venv enviroment.
 check dmesg for info about addresses
 ```console
