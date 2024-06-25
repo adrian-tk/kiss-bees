@@ -9,13 +9,10 @@
 # 2024-06-16 MCU_LD changed to attiny after toolchain mod.
 
 # uc name for gcc CFLAGS
-MCU_C = attiny412
-
-# uc type for linker LDFLAGS
-MCU_LD = attiny412
+MCU = attiny412
 
 # uc name for programming device
-MCU_DEV = attiny412
+MCU_DEV = $(MCU)
 
 # fuse default settings
 L_FUSE_DEF = 0xe1

@@ -47,7 +47,7 @@ int main(){
 
 	while (1){
 		//USART0_sendChar('H');
-		USART0_sendString("jdtcpsc \r\n");
+		USART0_sendString("Hello World!\r\n");
 		_delay_ms(500);
 	}
 }

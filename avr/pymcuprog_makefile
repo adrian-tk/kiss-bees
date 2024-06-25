@@ -1,12 +1,13 @@
 # makefile for using pymcuprog
 #
-# 2024-06-14
+# 2024-06-26
 # Adrian Tomczyk
 # adrian.tk@gmail.com
 #
 # shall not be used standalone
 # but included in other makefile
 #
+# 2024-06-26 added --erase option to write, additional erase step removed
 
 
 .PHONY: program upload erase write #fuse_set fuse_default
@@ -27,16 +28,18 @@ DEV_FLAGS = -t uart \
 		  -d $(MCU_DEV) \
 
 
-upload: erase write
+#upload: erase write
 
 erase: 
 	$(DEVICE) erase $(DEV_FLAGS)
 
 write: hex
-	$(DEVICE) write -f $(PROG:.elf=.hex) $(DEV_FLAGS)
+#	$(DEVICE) write -f $(PROG:.elf=.hex) $(DEV_FLAGS)
+	$(DEVICE) write --erase -f $(PROG:.elf=.hex) $(DEV_FLAGS)
 
 
-program: upload clean
+#program: upload clean
+program: write clean
 
 #fuse_default:
 #	$(DEVICE) $(DEV_FLAGS) -U lfuse:w:$(L_FUSE_DEF):m -U hfuse:w:$(H_FUSE_DEF):m

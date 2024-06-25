@@ -8,10 +8,7 @@
 # but included in other makefile
 
 # uc name for gcc CFLAGS
-MCU_C = atmega8a
-
-# uc type for linker LDFLAGS
-MCU_LD = atmega8a
+MCU = atmega8a
 
 # uc name for programmer
 MCU_DEV = m8a

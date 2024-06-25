@@ -1,14 +1,17 @@
 # general makefile for avr uc
 #
-# 2024-06-16
+# 2024-06-26
 # Adrian Tomczyk
 # adrian.tk@gmail.com
 #
 # shall not be used standalone
 # but included in other makefile
 # 2024-06-16 path changed to microchip toolchain
+# 2024-06-24 corrected memory location (repair working with strings)
+# 2024-06-26 reapaired bugs from prevoius, cleaning up
 
-
+#toolchain placement
+TOOLCHAIN = /opt/avr/avr8-gnu-toolchain-linux_x86_64/bin/
 # phony don't create file
 .PHONY: clean all compile-all
 
@@ -16,36 +19,44 @@
 PROG = main.elf
 
 #CC = avr-gcc
-CC = /opt/avr/avr8-gnu-toolchain-linux_x86_64/bin/avr-gcc
+CC = $(TOOLCHAIN)avr-gcc
+
 #OC = avr-objcopy
-OC = /opt/avr/avr8-gnu-toolchain-linux_x86_64/bin/avr-objcopy
-#PLATFORM = avr8x
+OC = $(TOOLCHAIN)avr-objcopy
 
-# add $MCU_C in default Makefile
-CFLAGS = -mmcu=$(MCU_C) \
-		 -Wall \
-		 -g \
-		 -Os \
-	 	 -std=c99 \
-		 -c	
+CFLAGS=-x c \
+	   -funsigned-char \
+	   -funsigned-bitfields \
+	   -DDEBUG  \
+	   -O1 \
+	   -ffunction-sections \
+	   -fdata-sections \
+	   -fpack-struct \
+	   -fshort-enums \
+	   -g2 \
+	   -Wall \
+	   -mmcu=$(MCU) \
+	   -c \
+	   -std=gnu99
+#	   -MD \
+	   -MP \
+	   -MF $*.d \
+	   -MT $*.d \
+	   -MT $*.o
 
-# if PACK_DIR is defined in uc makefile add
-# paths to INCLUDES
-ifdef PACK_DIR
-INCLUDES += -B $(B_DIR) \
-          -I $(I_DIR)
-endif
+LDFLAGS = -mmcu=$(MCU) \
+		  -Wl,-Map=$(PROG:.elf=.map) \
+		  -Wl,--start-group \
+		  -Wl,-lm \
+		  -Wl,--end-group \
+		  -Wl,--gc-sections
 
-#LDFLAGS = -T msp432p401r.lds \
-		  --specs=nosys.specs \
-		  -Xlinker -Map=$(PROG:.out=.map)
-LDFLAGS = -mmcu=$(MCU_LD)
-
-# flags for avr-objcopy
-OCFLAGS = -j .text \
-		  -j .data \
-		  -O ihex
-
+OCFLAGS = -O ihex \
+		  -R .eeprom \
+		  -R .fuse \
+		  -R .lock \
+		  -R .signature \
+		  -R .user_signatures
 
 # replace in actual Makefile BEFORE include this file
 # added here only for readability
@@ -57,9 +68,16 @@ HEX := $(PROG:.elf=.hex)
 all: $(OBJS)
 	$(CC) $(OBJS) $(LDFLAGS) -o $(PROG)
 
+# for debugging 
+#obj:
+#	$(OBJS)
+#link:
+#	$(CC) $(OBJS) $(LDFLAGS) -o $(PROG)
+
+
 %.o: %.c
-	$(CC) $(CFLAGS) $(INCLUDES) $<
-	$(CC) $(CFLAGS) -MM -MF $*.d $(INCLUDES) $<
+#	$(CC) $(CFLAGS) $<
+	$(CC) $(CFLAGS) -MD -MP -MF $*.d -MT $*.d -MT $*.o $<
 
 hex: all 
 	$(OC) $(OCFLAGS) $(PROG) $(HEX)
