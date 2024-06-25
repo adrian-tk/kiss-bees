@@ -6,6 +6,8 @@
 #
 # shall not be used standalone
 # but included in other makefile
+#
+# 2024-06-26 only one MCU now needed
 
 # uc name for gcc CFLAGS
 MCU = atmega8a
