@@ -30,8 +30,8 @@ ISR (USART0_RXC_vect){
 
 void USART0_init(void){
 	//set alternate ports
-	//PORTMUX.CTRLB = PORTMUX_USART0_DEFAULT_gc;
 	//PORTMUX.CTRLB = PORTMUX_USART0_ALTERNATE_gc;
+	//PORTMUX.CTRLB = PORTMUX_USART0_DEFAULT_gc;
 	
 	//TxD - transmit pin
 	PORTA.DIR |= PIN6_bm;
@@ -72,6 +72,7 @@ void USART0_sendString(char *str){
 
 void USART0_listen(void){
 	c = USART0_readChar();
+	//check until end of line
     if(c != '\n' && c != '\r'){
 		//simple echo
 		USART0_sendChar(c);
@@ -80,13 +81,13 @@ void USART0_listen(void){
 	        char_index = 0;
         }
 	} else {
-		//when we have \n or \r add \0 and print it
+		//when we have \n or \r add \0 and dispatch it
 	    command[char_index] = '\0';
-        char_index = 0;
-        //printf("\n\rcommand: %s\n\r", command);
         printf("\n\r");
+        //printf("\n\rcommand: %s\n\r", command);
 		//send command to dispatch
-		dispatcher(command, sizeof(command));
+		dispatcher(command);
+        char_index = 0;
     }
 }
 
