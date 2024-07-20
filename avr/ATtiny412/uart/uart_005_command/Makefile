@@ -1,6 +1,6 @@
 #top level makefile
 #
-# 2024-05-11
+# 2024-07-20
 # Adrian Tomczyk
 # adrian.tk@gmail.com
 #
@@ -8,11 +8,16 @@
 # if You like to use one make file, just copy contents of include files
 # in place of include definition
 
+# how deep we are
+# show how to get to the avr dir
+DEEP = ../../../
+
 
 # files to compile
 # separate with blanks if more that one
 # filename might be used or wildcard for all.
 SRCS = main.c
+#SRCS = *.c
 
 # if needed set fuse here
 # might be programed with "make fuse_set"
@@ -21,4 +26,4 @@ SRCS = main.c
 #L_FUSE = 0xe4
 #H_FUSE = 0xd9
 
-include ../attiny412_makefile
+include $(DEEP)ATtiny412/attiny412_makefile
