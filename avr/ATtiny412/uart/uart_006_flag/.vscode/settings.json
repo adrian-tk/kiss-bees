@@ -1,0 +1,10 @@
+{
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "/home/domel/Repo/kiss-bees/avr/ATtiny412/uart_006_flag",
+            "binaryPath": "/home/domel/Repo/kiss-bees/avr/ATtiny412/uart_006_flag/main.elf",
+            "binaryArgs": []
+        }
+    ],
+    "C_Cpp.dimInactiveRegions": false
+}

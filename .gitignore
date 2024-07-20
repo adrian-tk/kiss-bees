@@ -1,10 +1,12 @@
 /env
+/env-tmp
 /area_for_testing
 /mkdocs/site
 ext_doc/
 __pycache__
 .~lock.*
 *.swp
+.python-version
 
 # ignore compiled files
 *.asm

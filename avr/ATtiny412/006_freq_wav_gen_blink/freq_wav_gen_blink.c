@@ -1,14 +1,20 @@
 //default frequency is 20MHz with prescaler division factor of 6
 //#define F_CPU 3333333UL
 
+/*
+ * 2024-07-20
+ * Adrian Tomczyk
+ * adrian.tk@gmail.com
+ */
+
 #include <avr/io.h>
 
 int main(){
 
 	//set alternate port (PIN7)
-	PORTMUX.CTRLC = PORTMUX_TCA00_ALTERNATE_gc;
+	//PORTMUX.CTRLC = PORTMUX_TCA00_ALTERNATE_gc;
    	//configure pin as output
-	PORTA.DIR |= PIN7_bm;
+	PORTA.DIR |= PIN3_bm;
 
 	//main frequency (3333333/s) / div(64) ~13021/s 
 	//so we need 13020 (incl. zero) to get 1s

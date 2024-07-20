@@ -6,12 +6,11 @@
 #
 # shall not be used standalone
 # but included in other makefile
+#
+# 2024-06-26 only one MCU now needed
 
 # uc name for gcc CFLAGS
-MCU_C = atmega8a
-
-# uc type for linker LDFLAGS
-MCU_LD = atmega8a
+MCU = atmega8a
 
 # uc name for programmer
 MCU_DEV = m8a

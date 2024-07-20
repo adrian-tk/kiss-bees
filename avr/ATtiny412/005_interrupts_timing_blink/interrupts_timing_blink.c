@@ -1,12 +1,18 @@
 //default frequency is 20MHz with prescaler division factor of 6
 //#define F_CPU 3333333UL
 
+/*
+ * 2024-07-20
+ * Adrian Tomczyk
+ * adrian.tk@gmail.com
+ */
+
 #include <avr/io.h>
 #include <avr/interrupt.h>
 
 int main(){
    	//configure pin as output
-	PORTA.DIR |= PIN7_bm;
+	PORTA.DIR |= PIN3_bm;
 
 	//main frequency (3333333/s) / div(64) ~13021/s 
 	//so we need 13020 (incl. zero) to get 1s
@@ -37,7 +43,7 @@ int main(){
 
 ISR(TCA0_OVF_vect){
 	// Toggle pin
-	PORTA.OUTTGL = PIN7_bm;
+	PORTA.OUTTGL = PIN3_bm;
 
 	//clear flags - flags are not cleared automatically
 	TCA0.SINGLE.INTFLAGS = TCA_SINGLE_OVF_bm;
