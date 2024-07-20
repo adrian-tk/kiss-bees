@@ -16,7 +16,7 @@ DEEP = ../../../
 # files to compile
 # separate with blanks if more that one
 # filename might be used or wildcard for all.
-SRCS = main.c
+SRCS = main.c ring_buffer.c
 #SRCS = *.c
 
 # if needed set fuse here

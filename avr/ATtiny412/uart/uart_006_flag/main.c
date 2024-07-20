@@ -7,6 +7,9 @@
 #include "led.c"
 #include "uart_command.c"
 
+//flag for input uart data
+volatile int flag_uart = 0;
+
 int main(){
 	
 	LED_init();
@@ -16,8 +19,16 @@ int main(){
 	sei();
 
 	while (1){
-		;
+		// read from buffer
+		if (flag_uart == 1){
+			USART0_read_buffer();
+			flag_uart = 0;
+		}
 	}
 }
 
 
+ISR (USART0_RXC_vect){
+	flag_uart = 1;
+	USART0_to_buffer();
+}
