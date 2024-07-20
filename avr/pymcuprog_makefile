@@ -17,7 +17,9 @@ CURRENT_MAKEFILE := $(word $(words $(MAKEFILE_LIST)),$(MAKEFILE_LIST))
 MAKEFILE_DIRECTORY := $(dir $(CURRENT_MAKEFILE))
 
 # add program to use, might be in env
-DEVICE = $(MAKEFILE_DIRECTORY)../env/bin/pymcuprog
+#DEVICE = $(MAKEFILE_DIRECTORY)../env/bin/pymcuprog
+# for pyver and other just
+DEVICE = pymcuprog
 
 # port for serial programming
 SERIAL_PORT = /dev/ttyACM0
