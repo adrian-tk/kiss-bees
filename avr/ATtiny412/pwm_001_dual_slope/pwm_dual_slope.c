@@ -1,6 +1,12 @@
 //default frequency is 20MHz with prescaler division factor of 6
 //#define F_CPU 3333333UL
 
+/*
+ * 2024-07-20
+ * Adrian Tomczyk
+ * adrian.tk@gmail.com
+ */
+
 #include <avr/io.h>
 
 void PORT_init(void);
@@ -9,11 +15,11 @@ void TCA0_init(void);
 //initialize ports
 void PORT_init(void){
 	
-	//set alternate port (PIN7)
-	PORTMUX.CTRLC = PORTMUX_TCA00_ALTERNATE_gc;
+	//set alternate port (PIN7) instead of PIN3
+	//PORTMUX.CTRLC = PORTMUX_TCA00_ALTERNATE_gc;
 
    	//configure pin as output
-	PORTA.DIR |= PIN7_bm;
+	PORTA.DIR |= PIN3_bm;
 }
 
 //initialize timer TCA0
@@ -24,7 +30,8 @@ void TCA0_init(void){
 	TCA0.SINGLE.PERBUF = 416; 
 
 	//for 50 % duty cycle half of perfbuf
-	TCA0.SINGLE.CMP0BUF = 208; 
+	//for 1 % duty cycle 1/100 of perfbuf
+	TCA0.SINGLE.CMP0BUF = 4; 
 	
 	//PWM mode
 	TCA0.SINGLE.CTRLB = TCA_SINGLE_WGMODE_DSBOTTOM_gc

@@ -6,7 +6,7 @@
  */
 
 /*
- * 2024-06-19
+ * 2024-07-20
  * Adrian Tomczyk
  * adrian.tk@gmail.com
  */
@@ -28,11 +28,11 @@ volatile int flag;
 //initialize ports
 void PORT_init(void){
 	
-	//set alternate port (PIN7)
-	PORTMUX.CTRLC = PORTMUX_TCA00_ALTERNATE_gc;
+	//set alternate port (PIN7) instead of PIN3
+	//PORTMUX.CTRLC = PORTMUX_TCA00_ALTERNATE_gc;
 
    	//configure pin as output
-	PORTA.DIR |= PIN7_bm;
+	PORTA.DIR |= PIN3_bm;
 }
 
 //initialize timer TCA0
