@@ -1,0 +1,5 @@
+# add files to compile,
+# file created to not modify Makefile for project
+
+SRCS += uart/ring_buffer.c
+

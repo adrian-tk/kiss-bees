@@ -11,7 +11,7 @@
 #include "command.c"
 #include "ring_buffer.h"
 
-//ISR (USART0_RXC_vect);
+ISR (USART0_RXC_vect);
 void USART0_init(void);
 void USART0_sendChar(char c);
 int USART0_printChar(char c, FILE *stream);
@@ -20,12 +20,31 @@ void USART0_listen(void);
 char USART0_readChar(void);
 void USART0_to_buffer(void);
 void USART0_read_buffer(void);
+void USART0_flag(void);
 
 static FILE USART_stream = FDEV_SETUP_STREAM(USART0_printChar, NULL, _FDEV_SETUP_WRITE);
 char command[MAX_COMMAND_LEN];
 uint8_t char_index = 0;
 char c;
 
+//flag for input uart data
+volatile int flag_uart = 0;
+
+// interrupt function
+ISR (USART0_RXC_vect){
+	flag_uart = 1;
+	USART0_to_buffer();
+}
+
+/* if there are some incoming data in uart
+ * put it on ring buffer and clear flag
+ */
+void USART0_flag(void){
+	if (flag_uart == 1){
+	USART0_read_buffer();
+	flag_uart = 0;
+	}
+}
 
 /*put a char from uart to ring buffer
 */

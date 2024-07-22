@@ -21,12 +21,14 @@ void dispatcher(char* command){
 	if(strcmp(com, "")==0){
 		;
 	}
+	else if(strcmp(com, "help") == 0){
+			printf("available command: only \"help\"\n\r");
+	}
+	/* add another functions like that:
 	else if(strcmp(com, "led")==0){
 		LED_disp(arg);
 	}
-	else if(strcmp(com, "help") == 0){
-			printf("available command: help, led\n\r");
-	}
+	*/
 	else {
 		printf("unknown command: %s, try: help\n\r", com);
 	}

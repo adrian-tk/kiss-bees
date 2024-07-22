@@ -16,8 +16,10 @@ DEEP = ../../../
 # files to compile
 # separate with blanks if more that one
 # filename might be used or wildcard for all.
+# for not modify this Makefile, files might be added to source_makefile
+# SRCS = *.c
 SRCS = main.c 
-#SRCS = *.c
+-include source_makefile
 
 # if needed set fuse here
 # might be programed with "make fuse_set"

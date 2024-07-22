@@ -10,14 +10,14 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
-#include "uart_command.c"
+#include "uart/uart.c"
 
-volatile int flag_uart = 0;
 
 int main(void){
 
 	//initialise uart
 	USART0_init();
+
 	//set PIN3 as an output
 	PORTA.DIRSET = PIN3_bm;
 	//PORTA.DIR |= PIN3_bm; (also works)
@@ -27,15 +27,23 @@ int main(void){
 	//turn on internal pullup resistor
 	PORTA.PIN1CTRL = PORT_PULLUPEN_bm;
 
+	// turn on interrupt
+	sei();
+
 	while(1){
+
+		USART0_flag();
+
 		//check the state of input
 		if (~PORTA.IN & PIN1_bm){
 			//turn on led
 			PORTA.OUT |= PIN3_bm;
+			printf("led on\n\r");
 		}
 		else{
 			//turn of led
 			PORTA.OUT &= ~PIN3_bm;
+			printf("led off\n\r");
 		}
 	}
 }
