@@ -1,6 +1,6 @@
 # general makefile for avr uc
 #
-# 2024-06-26
+# 2024-07-22
 # Adrian Tomczyk
 # adrian.tk@gmail.com
 #
@@ -9,6 +9,7 @@
 # 2024-06-16 path changed to microchip toolchain
 # 2024-06-24 corrected memory location (repair working with strings)
 # 2024-06-26 reapaired bugs from prevoius, cleaning up
+# 2024-07-22 added -o option to CC, works with directory
 
 #toolchain placement
 TOOLCHAIN = /opt/avr/avr8-gnu-toolchain-linux_x86_64/bin/
@@ -77,7 +78,8 @@ all: $(OBJS)
 
 %.o: %.c
 #	$(CC) $(CFLAGS) $<
-	$(CC) $(CFLAGS) -MD -MP -MF $*.d -MT $*.d -MT $*.o $<
+#	$(CC) $(CFLAGS) -MD -MP -MF $*.d -MT $*.d -MT $*.o $<
+	$(CC) $(CFLAGS) -MD -MP -MF $*.d -MT $*.d -MT $*.o -o $@ $<
 
 hex: all 
 	$(OC) $(OCFLAGS) $(PROG) $(HEX)
