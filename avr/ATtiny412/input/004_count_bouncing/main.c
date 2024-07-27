@@ -50,23 +50,30 @@ int main(void)
 
 		USART0_flag();
 
-		if (pin1_change)
-		{
-			pin1_change = 0;
+		int bouncing = 0;
 
-			// check the state of input
-			if (~PORTA.IN & PIN1_bm)
+		for(uint32_t counter = 1; counter < 500000; counter++){
+
+			if (pin1_change)
 			{
-				// turn on led
-				PORTA.OUT |= PIN3_bm;
-				printf("on, ");
-			}
-			else
-			{
-				// turn of led
-				PORTA.OUT &= ~PIN3_bm;
-				printf("off, ");
+				pin1_change = 0;
+				bouncing++;
+
+				// check the state of input
+				if (~PORTA.IN & PIN1_bm)
+				{
+					// turn on led
+					PORTA.OUT |= PIN3_bm;
+					printf("led on pin 1 is on now, what will happen in a while? ");
+				}
+				else
+				{
+					// turn of led
+					PORTA.OUT &= ~PIN3_bm;
+					printf("led on pin 1 is off now, what will happen in a while?");
+				}
 			}
 		}
+		printf("bounced %d times\n\r", bouncing);
 	}
 }

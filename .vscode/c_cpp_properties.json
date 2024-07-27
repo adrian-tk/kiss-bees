@@ -1,0 +1,32 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "c17",
+            "cppStandard": "gnu++17",
+            "intelliSenseMode": "linux-gcc-x64",
+            "configurationProvider": "ms-vscode.makefile-tools"
+        },
+        {
+            "name": "attiny412",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/opt/avr/avr8-gnu-toolchain-linux_x86_64/**"
+            ],
+            "defines": [],
+            "compilerPath": "/opt/avr/avr8-gnu-toolchain-linux_x86_64/bin/avr-gcc",
+            "cStandard": "gnu99",
+            "cppStandard": "gnu++17",
+            "intelliSenseMode": "linux-gcc-x64",
+            "forcedInclude": [
+                "/opt/avr/avr8-gnu-toolchain-linux_x86_64/avr/include/avr/iotn412.h"
+            ]
+        }
+    ],
+    "version": 4
+}

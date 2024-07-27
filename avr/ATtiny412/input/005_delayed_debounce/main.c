@@ -2,7 +2,7 @@
 #define F_CPU 3333333UL
 
 /*
- * 2024-07-20
+ * 2024-07-23
  * Adrian Tomczyk
  * adrian.tk@gmail.com
  */
@@ -10,6 +10,8 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
+#include <util/atomic.h>
+#include <util/atomic.h>
 #include "uart/uart.c"
 
 volatile uint8_t pin1_change;
@@ -48,12 +50,14 @@ int main(void)
 	while (1)
 	{
 
-		USART0_flag();
+		// USART0_flag();
 
 		if (pin1_change)
 		{
-			pin1_change = 0;
-
+			ATOMIC_BLOCK(ATOMIC_FORCEON){
+				_delay_ms(20);
+			}
+			
 			// check the state of input
 			if (~PORTA.IN & PIN1_bm)
 			{
@@ -67,6 +71,7 @@ int main(void)
 				PORTA.OUT &= ~PIN3_bm;
 				printf("off, ");
 			}
+			pin1_change = 0;
 		}
 	}
 }
