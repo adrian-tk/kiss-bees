@@ -9,7 +9,7 @@
  * 	1 - no place in buffer. Buffer will no overwrite,
  * 		additional values will be discarded.
  */
-void buffer_put(char c);
+int buffer_put(char c);
 
 /* This function get a char from a buffer.
  * Input:
