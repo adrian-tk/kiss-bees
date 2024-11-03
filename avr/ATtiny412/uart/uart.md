@@ -10,7 +10,7 @@ volatile int flag_uart = 0;
 
 volatile is good idea, beacuse of interrupt way of changing data.
 Compilers don't know when interrupt will work, and may "optimize" reading of flag value, and read it only when expect some changes.
-volatile indicates, that this value shall be always directly read from memory to be shure we have actual values.
+volatile indicates, that this value shall be always directly read from memory to be sure we have actual values.
 
 ISR only set a flag and write to buffer:
 

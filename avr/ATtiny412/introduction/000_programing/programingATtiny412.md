@@ -5,7 +5,14 @@ ATtiny412 use completly different (UDPI) programing interface than older type of
 Real connection on bredboard  might look like below. ATtiny412 (and other uc in this series) don't have a convinient Dip package, so SOP8 to Dip8 adapter was used.  
 ![connection example](bb.jpg "connection example")
 If You're not afraid of soldering, some smaller SOP to dip adapter is also available:
-![another connection example](cc.jpg "another connection example")
+![another connection example](cc.jpg "another connection example")  
+When You solder it in proper way, You have pin names from attiny datasheet:
+| VDD | 1 *|           | 8 | GND  |
+|-----|----|-----------|---|------|
+| PA6 | 2  |           | 7 | PA3  |
+| PA7 | 3  |           | 6 | UDPI |
+| PA1 | 4  |           | 5 | PA2  |
+
 ## Software
 
 ### Toolchain
